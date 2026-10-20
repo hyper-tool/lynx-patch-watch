@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}规则 · lynx-patch-watch{% endblock %}
+{% block content %}
+<h1>检查规则（只读）</h1>
+<p class="lede">规则即仓库 <span class="mono">rules/magento/*.yaml</span> 文件，本页只读展示。</p>
+
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>规则 ID</th><th>公告</th><th>CVE</th><th>适用范围</th><th>命中结论</th><th>检查项</th><th>来源</th></tr></thead>
+    <tbody>
+      {% for rule in rules %}
+      <tr>
+        <td class="mono">{{ rule.id }}</td>
+        <td class="mono">{{ rule.advisory }}</td>
+        <td class="mono">{{ rule.items|join(', ') or '全部' }}</td>
+        <td class="mono">{{ rule.applies_to | tojson if rule.applies_to else '—' }}</td>
+        <td>{{ rule.verdict_on_match }}</td>
+        <td><pre class="raw">{{ rule.checks | tojson(indent=2) }}</pre></td>
+        <td class="mono">{{ rule.source_path }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="muted">暂无规则</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

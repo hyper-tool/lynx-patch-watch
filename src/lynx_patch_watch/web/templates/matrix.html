@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}项目 × 公告矩阵 · lynx-patch-watch{% endblock %}
+{% block content %}
+<h1>项目 × 公告矩阵</h1>
+<p class="lede">单元格为公告级汇总结论（任一 item vulnerable/conflict → vulnerable；其次 unknown → unknown；其次 declared → declared；全部 fixed → fixed；全部 N/A → N/A）。</p>
+
+<div class="table-wrap">
+  <table class="data">
+    <thead>
+      <tr>
+        <th>项目</th>
+        {% for adv in advisories %}
+        <th><a href="/advisories/{{ adv.id }}">{{ adv.id }}</a></th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td><a href="/projects/{{ row.project.id }}">{{ row.project.name or row.project.id }}</a></td>
+        {% for adv in advisories %}
+        {% set status = row.statuses.get(adv.id, 'unknown') %}
+        <td><span class="status-pill status-{{ status }}">{{ status_zh(status) }}</span></td>
+        {% endfor %}
+      </tr>
+      {% else %}
+      <tr><td colspan="{{ advisories|length + 1 }}" class="muted">暂无项目</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

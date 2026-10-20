@@ -1,0 +1,20 @@
+# Built-in example rule: git-commit based verification for a project repo.
+#
+# (a) project-repo mode: the fix commit must be an ancestor of HEAD.
+# (b) upstream mode: an upstream .patch is downloaded, path-mapped
+#     (app/code/Magento/X → vendor/magento/module-x,
+#      lib/internal/Magento/Framework → vendor/magento/framework) and its
+#     "after" side is matched against the deployed vendor tree.
+#
+# Upstream mode only fires when the rule names a sha or patch URL explicitly;
+# there is no automatic discovery (see plan risk notes).
+id: apsb26-73-commits-example
+advisory: APSB26-73
+items: [CVE-2026-48356]
+applies_to: {type: magento}
+checks:
+  - commits: []            # add fix commit shas here, e.g. ["1a2b3c4d..."]
+  - upstream:
+      # patch_url: https://example.com/apsb26-73-fix.patch
+      # sha: 1a2b3c4d5e6f708192a3b4c5d6e7f8091a2b3c4d
+verdict_on_match: fixed

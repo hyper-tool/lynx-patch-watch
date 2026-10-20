@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block title %}{{ project.id }} · 项目详情{% endblock %}
+{% block content %}
+<h1>{{ project.name or project.id }}</h1>
+<p class="lede"><span class="mono">{{ project.id }}</span> · {{ scan_mode_zh.get(project.scan_mode, project.scan_mode) }} · {{ project_type_zh.get(project.type, project.type) }}</p>
+
+<div class="meta-grid">
+  <div><dt>识别类型</dt><dd>{{ project.detected_type or '—' }}</dd></div>
+  <div><dt>声明版本</dt><dd class="mono">{{ project.declared_version or '—' }}</dd></div>
+  <div><dt>版本类型</dt><dd>{{ project.declared_edition or '—' }}</dd></div>
+  <div><dt>Git 地址</dt><dd class="mono">{{ redact_git_url(project.git_url) or '—' }}</dd></div>
+  <div><dt>分支</dt><dd class="mono">{{ project.branch or '—' }}</dd></div>
+  <div><dt>本地路径</dt><dd class="mono">{{ project.local_path or '—' }}</dd></div>
+  <div><dt>已声明补丁</dt><dd class="mono">{{ parse_json_list(project.declared_patches if project.declared_patches is string else project.declared_patches)|join(', ') or '—' }}</dd></div>
+  <div><dt>负责人</dt><dd>{{ parse_json_list(project.owners if project.owners is string else project.owners)|join(', ') or '—' }}</dd></div>
+  <div><dt>环境</dt><dd>{{ project.env or '—' }}</dd></div>
+  <div><dt>补丁维护率</dt><dd>{% if view.maintenance is not none %}{{ '%.0f' % (view.maintenance * 100) }}%{% else %}—{% endif %}</dd></div>
+  <div><dt>最长未修</dt><dd>{{ view.longest_open_days }} 天</dd></div>
+  <div><dt>最近扫描</dt><dd>{{ format_date(view.last_run.finished_at or view.last_run.started_at) if view.last_run else '—' }}</dd></div>
+</div>
+
+<div class="page-actions">
+  <form method="post" action="/projects/{{ project.id }}/scan" style="display:inline;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="btn btn-primary">扫描</button>
+  </form>
+  <form method="post" action="/projects/{{ project.id }}/toggle" style="display:inline;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <button type="submit" class="btn">{{ '禁用' if project.enabled else '启用' }}</button>
+  </form>
+  <form method="post" action="/projects/{{ project.id }}/delete" style="display:inline;"
+        onsubmit="return confirm('删除项目需要二次确认：输入项目 ID {{ project.id }}');">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <input type="hidden" name="confirm" value="{{ project.id }}">
+    <button type="submit" class="btn">删除</button>
+  </form>
+</div>
+
+<h2>识别信号</h2>
+<div class="section">
+  {% if project.detected_type %}
+  <ul>
+    <li>类型：<strong>{{ project.detected_type }}</strong></li>
+  </ul>
+  {% else %}
+  <p class="muted">尚未识别（运行一次扫描后显示）。</p>
+  {% endif %}
+</div>
+
+<h2>公告 × 风险项结论（含检查器证据）</h2>
+{% for entry in items %}
+<details class="fold {{ 'finding-open' if entry.finding and entry.finding.status in ('vulnerable','conflict','unknown') else 'finding-closed' }}" {{ 'open' if entry.finding and entry.finding.status in ('vulnerable','conflict','unknown') else '' }}>
+  <summary>
+    <span class="finding-summary-main">
+      <span class="mono">{{ entry.item.item_id }}</span>
+      {% if entry.item.severity %}<span class="sev sev-{{ entry.item.severity }}">{{ severity_zh(entry.item.severity) }}</span>{% endif %}
+      {% if entry.finding %}<span class="status-pill status-{{ entry.finding.status }}">{{ status_zh(entry.finding.status) }}</span>{% endif %}
+      {% if entry.review and entry.review.status not in ('pending',) %}<span class="status-pill">人工：{{ entry.review.status }}{% if entry.review.stale %}（已过期）{% endif %}</span>{% endif %}
+    </span>
+    <span class="fold-toggle muted">详情</span>
+  </summary>
+  <div class="fold-body">
+    <div class="meta-grid">
+      <div><dt>修复方式</dt><dd>{{ fix_kind_zh(entry.item.fix_kind) }}</dd></div>
+      <div><dt>CVSS</dt><dd>{{ entry.item.cvss if entry.item.cvss is not none else '—' }}</dd></div>
+      <div><dt>置信度</dt><dd>{{ '%.2f' % entry.finding.confidence if entry.finding else '—' }}</dd></div>
+      <div><dt>判定来源</dt><dd>{{ entry.finding.decided_by if entry.finding else '—' }}</dd></div>
+      <div><dt>证据哈希</dt><dd class="mono">{{ entry.finding.evidence_hash if entry.finding else '—' }}</dd></div>
+    </div>
+
+    <h3>检查器结果</h3>
+    <div class="table-wrap">
+      <table class="data">
+        <thead><tr><th>检查器</th><th>结论</th><th>置信度</th><th>说明</th></tr></thead>
+        <tbody>
+          {% for r in entry.results %}
+          <tr>
+            <td class="mono">{{ r.checker }}</td>
+            <td><span class="status-pill status-{{ r.outcome }}">{{ status_zh(r.outcome) }}</span></td>
+            <td>{{ '%.2f' % r.confidence }}</td>
+            <td><pre class="raw">{{ r.evidence | tojson(indent=2) }}</pre></td>
+          </tr>
+          {% else %}
+          <tr><td colspan="4" class="muted">暂无检查结果</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <h3>人工确认</h3>
+    <form method="post" action="/projects/{{ project.id }}/review">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+      <input type="hidden" name="item_id" value="{{ entry.item.item_id }}">
+      <div class="filters">
+        <label>状态
+          <select name="status">
+            <option value="pending" {{ 'selected' if not entry.review or entry.review.status == 'pending' else '' }}>待定</option>
+            <option value="confirmed_fixed" {{ 'selected' if entry.review and entry.review.status == 'confirmed_fixed' else '' }}>确认已修</option>
+            <option value="confirmed_vulnerable" {{ 'selected' if entry.review and entry.review.status == 'confirmed_vulnerable' else '' }}>确认存在漏洞</option>
+            <option value="ignored" {{ 'selected' if entry.review and entry.review.status == 'ignored' else '' }}>忽略（不计入分母）</option>
+            <option value="false_positive" {{ 'selected' if entry.review and entry.review.status == 'false_positive' else '' }}>误报（不计入分母）</option>
+          </select>
+        </label>
+        <label>确认人<input type="text" name="reviewer" value="{{ entry.review.reviewer if entry.review else 'admin' }}"></label>
+        <label>计划日期<input type="date" name="due_date" value="{{ entry.review.due_date if entry.review and entry.review.due_date else '' }}"></label>
+        <label style="flex: 1 1 12rem;">备注<input type="text" name="note" value="{{ entry.review.note if entry.review else '' }}"></label>
+        <button type="submit" class="btn">保存确认</button>
+      </div>
+      {% if entry.review and entry.review.stale %}
+      <p class="warn-text">该确认已过期：自动证据在确认后发生变化，请重新复核。</p>
+      {% endif %}
+    </form>
+  </div>
+</details>
+{% else %}
+<p class="empty">暂无风险项（先运行 lpw ingest 拉取公告）。</p>
+{% endfor %}
+
+<h2>扫描历史</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>#</th><th>开始</th><th>结束</th><th>commit</th><th>规则集</th><th>状态</th><th>说明</th></tr></thead>
+    <tbody>
+      {% for run in history %}
+      <tr>
+        <td>{{ run.id }}</td>
+        <td>{{ format_date(run.started_at) }}</td>
+        <td>{{ format_date(run.finished_at) }}</td>
+        <td class="mono">{{ (run.git_commit or '—')[:10] }}</td>
+        <td class="mono">{{ run.ruleset_hash or '—' }}</td>
+        <td>{{ run.status }}</td>
+        <td class="mono">{{ (run.error or run.skip_reason or '')[:120] }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="muted">暂无扫描记录</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

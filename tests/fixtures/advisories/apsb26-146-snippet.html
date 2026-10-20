@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+  Fixture: browser-saved snapshot of https://www.adobe.com/trust/security/products/commerce/apsb26-146.html
+  (fetched 2026-10-17; the live page blocks CLI fetches with Akamai 403, so this
+   snapshot is used by tests and `lpw ingest --from-html` offline flows).
+  Key trait: the Solution column offers "Hotfix for CVE-2026-75650" — no fixed
+  version number, so only patch-signal judgement can verify the fix.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Security update available for Adobe Commerce | APSB26-146</title>
+</head>
+<body>
+<main>
+<h1>Adobe Security Bulletin</h1>
+<p>Last updated on Sep 7, 2026</p>
+<h2>Security update available for Adobe Commerce | APSB26-146</h2>
+
+<h3>Summary</h3>
+<p>Adobe has released a security update for Adobe Commerce and Magento Open Source.
+This update resolves a <a href="https://www.adobe.com/trust/security/bulletins-and-advisories.html?tab=security-2">critical</a>
+vulnerability that could result in arbitrary code execution.</p>
+<p>Adobe is aware of CVE-2026-75650 being exploited in the wild.</p>
+
+<h3>Affected Versions</h3>
+<table>
+  <thead>
+    <tr><th>Product</th><th>Version</th><th>Platform</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Adobe Commerce</td><td>2.4.9-2026-aug and earlier<br>2.4.8-2026-aug and earlier<br>2.4.7-2026-aug and earlier<br>2.4.6-2026-aug and earlier<br>2.4.5-2026-aug and earlier<br>2.4.4-2026-aug and earlier</td><td>All</td></tr>
+    <tr><td>Adobe Commerce B2B</td><td>1.5.3-2026-aug and earlier<br>1.5.2-2026-aug and earlier<br>1.4.2-2026-aug and earlier<br>1.3.4-2026-aug and earlier<br>1.3.3-2026-aug and earlier</td><td>All</td></tr>
+    <tr><td>Magento Open Source</td><td>2.4.9-2026-aug and earlier<br>2.4.8-2026-aug and earlier<br>2.4.7-2026-aug and earlier<br>2.4.6-2026-aug and earlier</td><td>All</td></tr>
+  </tbody>
+</table>
+
+<h3>Solution</h3>
+<p>Adobe categorizes these updates with the following
+<a href="https://www.adobe.com/trust/security/bulletins-and-advisories.html?tab=security-2">priority ratings</a>
+and recommends users update their installation to the newest version.</p>
+<table>
+  <thead>
+    <tr><th>Product</th><th>Updated version</th><th>Platform</th><th>Priority rating</th><th>Installation instructions</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Adobe Commerce and Magento Open Source</td>
+      <td>Hotfix for CVE-2026-75650</td>
+      <td>All</td>
+      <td>1</td>
+      <td><a href="https://experienceleague.adobe.com/en/docs/commerce-knowledge-base/kb/announcements/commerce-apsb26-146">Release Notes for hotfix on CVE-2026-75650</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Vulnerability Details</h3>
+<table>
+  <thead>
+    <tr><th>Vulnerability category</th><th>Vulnerability impact</th><th>Severity</th><th>CVSS base score</th><th>CVE number(s)</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Improper Neutralization of Special Elements Used in a Template Engine (<a href="https://cwe.mitre.org/data/definitions/1336.html">CWE-1336</a>)</td>
+      <td>Arbitrary code execution</td>
+      <td>Critical</td>
+      <td>10.0</td>
+      <td>CVE-2026-75650</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Acknowledgements</h3>
+<p>Adobe would like to thank the following researchers for reporting these issues and working with Adobe to help protect our customers:</p>
+<ul>
+  <li>0x0.eth (0x0doteth) — CVE-2026-76200, CVE-2026-76201, CVE-2026-77109</li>
+  <li>wohlie — CVE-2026-77108</li>
+  <li>e0x1337 (e0x1337) — CVE-2026-76202</li>
+</ul>
+</main>
+</body>
+</html>

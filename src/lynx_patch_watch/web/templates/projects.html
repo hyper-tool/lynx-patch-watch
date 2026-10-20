@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+{% block title %}项目管理 · lynx-patch-watch{% endblock %}
+{% block content %}
+<h1>项目管理</h1>
+<p class="lede">新增、编辑、禁用、删除项目；“扫描”按钮将任务入队，由后台 worker 串行执行。</p>
+
+<form class="filters" method="get" action="/projects">
+  <label>搜索<input type="text" name="q" value="{{ q }}" placeholder="名称 / ID"></label>
+  <label>扫描方式
+    <select name="scan_mode">
+      <option value="">全部</option>
+      {% for key, label in scan_mode_zh.items() %}
+      <option value="{{ key }}" {{ 'selected' if scan_mode == key else '' }}>{{ label }}</option>
+      {% endfor %}
+    </select>
+  </label>
+  <button type="submit" class="btn">筛选</button>
+  <a class="btn btn-primary" href="#new-project">新增项目</a>
+</form>
+
+<div class="table-wrap">
+  <table class="data">
+    <thead>
+      <tr>
+        <th>ID</th><th>名称</th><th>类型</th><th>扫描方式</th><th>版本</th>
+        <th>已修</th><th>未修</th><th>declared</th><th>未知</th>
+        <th>补丁维护率</th><th>最长未修</th><th>最近扫描</th><th>状态</th><th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in rows %}
+      <tr>
+        <td class="mono"><a href="/projects/{{ row.project.id }}">{{ row.project.id }}</a></td>
+        <td>{{ row.project.name }}</td>
+        <td>{{ project_type_zh.get(row.project.type, row.project.type) }}{% if row.project.detected_type %} → {{ row.project.detected_type }}{% endif %}</td>
+        <td>{{ scan_mode_zh.get(row.project.scan_mode, row.project.scan_mode) }}</td>
+        <td class="mono">{{ row.project.declared_version or '—' }}</td>
+        <td class="ok-text">{{ row.counts.fixed }}</td>
+        <td class="warn-text">{{ row.counts.vulnerable + row.counts.conflict + row.counts.unknown }}</td>
+        <td>{{ row.counts.declared }}</td>
+        <td>{{ row.counts.unknown }}</td>
+        <td>{% if row.maintenance is not none %}{{ '%.0f' % (row.maintenance * 100) }}%{% else %}—{% endif %}</td>
+        <td>{{ row.longest_open_days }} 天</td>
+        <td>{{ format_date(row.last_run.finished_at or row.last_run.started_at) if row.last_run else '—' }}</td>
+        <td>{{ '启用' if row.project.enabled else '禁用' }}</td>
+        <td>
+          <form method="post" action="/projects/{{ row.project.id }}/scan" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit" class="btn btn-sm">扫描</button>
+          </form>
+          <form method="post" action="/projects/{{ row.project.id }}/toggle" style="display:inline;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            <button type="submit" class="btn btn-sm">{{ '禁用' if row.project.enabled else '启用' }}</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="14" class="muted">暂无项目</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>扫描任务队列</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>#</th><th>项目</th><th>状态</th><th>触发</th><th>入队</th><th>错误</th></tr></thead>
+    <tbody>
+      {% for job in jobs %}
+      <tr>
+        <td>{{ job.id }}</td>
+        <td><a href="/projects/{{ job.project_id }}">{{ job.project_id }}</a></td>
+        <td>{{ job.status }}</td>
+        <td>{{ job.trigger }}</td>
+        <td>{{ format_date(job.queued_at) }}</td>
+        <td class="mono">{{ (job.error or '')[:120] }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="6" class="muted">队列为空</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2 id="new-project">新增项目</h2>
+<div class="section">
+  <form method="post" action="/projects">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="meta-grid">
+      <div><dt>项目 ID*</dt><dd><input type="text" name="id" required pattern="[a-z0-9][a-z0-9_\-]{1,63}" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>名称*</dt><dd><input type="text" name="name" required style="width:100%; font:inherit;"></dd></div>
+      <div><dt>类型</dt><dd>
+        <select name="type">
+          <option value="auto">自动识别</option>
+          <option value="magento">Magento</option>
+        </select>
+      </dd></div>
+      <div><dt>扫描方式</dt><dd>
+        <select name="scan_mode">
+          <option value="manual">手动登记</option>
+          <option value="local">本地目录</option>
+          <option value="git">Git 仓库</option>
+        </select>
+      </dd></div>
+      <div><dt>Git 地址</dt><dd><input type="text" name="git_url" placeholder="https://… 或 git@…（凭据用 ${ENV} 占位）" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>分支</dt><dd><input type="text" name="branch" value="main" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>本地路径</dt><dd><input type="text" name="local_path" placeholder="必须在 scan.local_root 下" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>Magento 版本（手动登记）</dt><dd><input type="text" name="declared_version" placeholder="如 2.4.7-p8" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>版本类型</dt><dd>
+        <select name="declared_edition">
+          <option value="">—</option>
+          <option value="CE">CE</option>
+          <option value="EE">EE</option>
+          <option value="B2B">B2B</option>
+        </select>
+      </dd></div>
+      <div><dt>已打补丁（逗号分隔）</dt><dd><input type="text" name="declared_patches" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>负责人</dt><dd><input type="text" name="owners" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>环境</dt><dd><input type="text" name="env" placeholder="prod / staging" style="width:100%; font:inherit;"></dd></div>
+      <div><dt>备注</dt><dd><input type="text" name="notes" style="width:100%; font:inherit;"></dd></div>
+    </div>
+    <div class="page-actions">
+      <button type="submit" class="btn btn-primary">创建</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

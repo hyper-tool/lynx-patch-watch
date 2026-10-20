@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}lynx-patch-watch{% endblock %}</title>
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <a class="brand-name" href="/">lynx-patch-watch</a>
+      <span class="brand-mark">Magento / Commerce 补丁安装检查</span>
+    </div>
+    <nav class="nav">
+      <a href="/" class="{{ 'active' if request.url.path == '/' else '' }}">看板</a>
+      <a href="/projects" class="{{ 'active' if request.url.path.startswith('/projects') else '' }}">项目</a>
+      <a href="/matrix" class="{{ 'active' if request.url.path == '/matrix' else '' }}">矩阵</a>
+      <a href="/history" class="{{ 'active' if request.url.path == '/history' else '' }}">历史</a>
+      <a href="/advisories" class="{{ 'active' if request.url.path.startswith('/advisories') else '' }}">公告</a>
+      <a href="/rules" class="{{ 'active' if request.url.path == '/rules' else '' }}">规则</a>
+      <a href="/excel" class="{{ 'active' if request.url.path == '/excel' else '' }}">Excel</a>
+    </nav>
+  </header>
+  <main class="main">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    lynx-patch-watch · 补丁安装检查与多项目看板
+  </footer>
+</body>
+</html>

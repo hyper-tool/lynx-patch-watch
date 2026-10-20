@@ -1,0 +1,178 @@
+{%- Ported from msw web/templates/_macros.html (magento-security-watcher). -%}
+{% macro sev_badge(sev, label=None) -%}
+<span class="sev sev-{{ sev|default('unknown') }}">{{ label or sev }}</span>
+{%- endmacro %}
+
+{% macro status_badge(status, label=None) -%}
+<span class="status-pill status-{{ status|default('unknown') }}">{{ label or status }}</span>
+{%- endmacro %}
+
+{% macro analysis_meta(analysis) %}
+  {% if analysis.ok %}
+    <div><dt>CVE</dt><dd class="mono">{{ analysis.cve_ids|join(', ') or '—' }}</dd></div>
+    <div><dt>评分</dt><dd>{{ analysis.score if analysis.score is not none else '—' }} <span class="muted">({{ analysis.score_source or 'n/a' }})</span></dd></div>
+    <div><dt>独立补丁</dt><dd>{{ '有' if analysis.has_isolated_patch else '无/未确认' }}</dd></div>
+    <div><dt>可升级修复</dt><dd>{{ '是' if analysis.upgrade_available else '否/未确认' }}</dd></div>
+    <div><dt>建议最低版本</dt><dd class="mono">{{ analysis.recommended_min_versions|join(', ') or '—' }}</dd></div>
+    <div><dt>缺失来源</dt><dd>{{ analysis.source_missing|join(', ') or '无' }}</dd></div>
+  {% endif %}
+{% endmacro %}
+
+{% macro analysis_details(analysis, evidence=none) %}
+  {% if not analysis.ok %}
+    <details class="fold">
+      <summary>分析 JSON（无法结构化解析）</summary>
+      <div class="fold-body"><pre class="raw">{{ analysis.raw_fallback }}</pre></div>
+    </details>
+  {% else %}
+    {% if analysis.remediation_notes %}
+    <div class="section"><h3>修复说明</h3><div class="prose">{{ analysis.remediation_notes }}</div></div>
+    {% endif %}
+    {% if analysis.business_impact %}
+    <div class="section"><h3>业务影响</h3><div class="prose">{{ analysis.business_impact }}</div></div>
+    {% endif %}
+    {% if analysis.narrative %}
+    <div class="section"><h3>综合说明</h3><div class="prose">{{ analysis.narrative }}</div></div>
+    {% endif %}
+    {% if analysis.technical_summary %}
+    <div class="section"><h3>技术摘要</h3><div class="prose">{{ analysis.technical_summary }}</div></div>
+    {% endif %}
+    {% if analysis.packages %}
+    <div class="section">
+      <h3>包约束</h3>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>包</th><th>受影响</th><th>修复版本</th></tr></thead>
+          <tbody>
+          {% for p in analysis.packages %}
+            <tr>
+              <td class="mono">{{ p.name }}</td>
+              <td class="mono">{{ p.affected_versions or '—' }}</td>
+              <td class="mono">{{ p.fixed_version or '—' }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endif %}
+    {% if analysis.fingerprints %}
+    <details class="fold">
+      <summary>内容指纹（{{ analysis.fingerprints|length }}）</summary>
+      <div class="fold-body">
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>路径</th><th>hunk</th><th>critical</th></tr></thead>
+            <tbody>
+            {% for fp in analysis.fingerprints %}
+              <tr>
+                <td class="mono">{{ fp.path }}</td>
+                <td class="mono">{{ fp.hunk_id or '—' }}</td>
+                <td>{{ fp.critical }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+    {% endif %}
+    {% if analysis.materials %}
+    <div class="section">
+      <h3>参考材料</h3>
+      <ul>
+      {% for m in analysis.materials %}
+        <li><span class="mono">{{ m.kind }}</span>
+          {% if m.url %}<a href="{{ m.url }}" rel="noopener noreferrer" target="_blank">{{ m.url }}</a>{% endif %}
+          {% if m.local_path %}<span class="mono muted">{{ m.local_path }}</span>{% endif %}
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+  {% endif %}
+  {% if evidence is not none %}
+  <details class="fold">
+    <summary>证据</summary>
+    <div class="fold-body">{{ evidence_block(evidence) }}</div>
+  </details>
+  {% endif %}
+  {% if analysis.ok and analysis.raw %}
+  <details class="fold">
+    <summary>raw 字段</summary>
+    <div class="fold-body"><pre class="raw">{{ analysis.raw | tojson(indent=2) }}</pre></div>
+  </details>
+  {% endif %}
+{% endmacro %}
+
+{% macro analysis_block(analysis, evidence=none) %}
+  {% if not analysis.ok %}
+    {{ analysis_details(analysis, evidence=evidence) }}
+  {% else %}
+    <dl class="meta-grid">
+      <div><dt>标题</dt><dd>{{ analysis.title }}</dd></div>
+      <div><dt>危险等级</dt><dd>{{ sev_badge(analysis.severity, analysis.severity_zh) }}</dd></div>
+      {{ analysis_meta(analysis) }}
+    </dl>
+    {{ analysis_details(analysis, evidence=evidence) }}
+  {% endif %}
+{% endmacro %}
+
+{% macro evidence_block(evidence) %}
+  {% if evidence.parse_error %}
+    <pre class="raw">{{ evidence.raw }}</pre>
+  {% else %}
+    <div class="section">
+      <h3>版本证据</h3>
+      {% if evidence.version %}
+        <pre class="raw">{{ evidence.version | tojson(indent=2) }}</pre>
+      {% else %}
+        <p class="muted">无</p>
+      {% endif %}
+    </div>
+    <div class="section">
+      <h3>源码片段匹配</h3>
+      <p class="muted">对照公告补丁里的 before/after 片段，在项目文件中查找是否仍含漏洞代码（hunk = 补丁中的一段改动）。</p>
+      {% if evidence.content %}
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>路径</th><th>片段 ID</th><th>结果</th><th>说明</th></tr></thead>
+          <tbody>
+          {% for h in evidence.content %}
+            <tr>
+              <td class="mono">{{ h.path }}</td>
+              <td class="mono">{{ h.hunk_id or '—' }}</td>
+              <td>{{ h.result }}</td>
+              <td>{{ h.detail }}</td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+        <p class="muted">无（本风险未配置内容指纹，仅按版本判定）</p>
+      {% endif %}
+    </div>
+    {% if evidence.warnings %}
+    <div class="section">
+      <h3>警告</h3>
+      <ul>{% for w in evidence.warnings %}<li>{{ w }}</li>{% endfor %}</ul>
+    </div>
+    {% endif %}
+  {% endif %}
+{% endmacro %}
+
+{% macro finding_body(f) %}
+  <dl class="meta-grid">
+    <div><dt>风险</dt><dd><a href="/risks/{{ f.risk_id }}">{{ f.risk_id }}</a></dd></div>
+    <div><dt>状态</dt><dd>{{ status_badge(f.remediation_status, f.remediation_status_zh) }}</dd></div>
+    <div><dt>危险等级</dt><dd>{{ sev_badge(f.severity, f.severity_zh) }}</dd></div>
+    {{ analysis_meta(f.analysis) }}
+    <div><dt>证据指纹</dt><dd class="mono">{{ f.evidence_fingerprint }}</dd></div>
+    <div><dt>判定时间</dt><dd>{{ f.created_at }}</dd></div>
+    {% if f.report_url %}
+    <div><dt>报告</dt><dd><a href="{{ f.report_url }}">打开</a></dd></div>
+    {% endif %}
+  </dl>
+  {{ analysis_details(f.analysis, evidence=f.evidence) }}
+{% endmacro %}

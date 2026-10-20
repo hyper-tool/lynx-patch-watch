@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}登录 · lynx-patch-watch{% endblock %}
+{% block content %}
+<div class="section" style="max-width: 26rem; margin: 3rem auto;">
+  <h1 style="margin-top: 0;">登录</h1>
+  <p class="lede">所有页面都需要登录（页面会暴露漏洞状况）。</p>
+  {% if error %}<p class="warn-text">{{ error }}</p>{% endif %}
+  <form method="post" action="/login">
+    <input type="hidden" name="next" value="{{ next or '/' }}">
+    <div class="meta-grid" style="grid-template-columns: 1fr;">
+      <div>
+        <dt>用户名</dt>
+        <dd><input type="text" name="username" value="admin" required style="width:100%; font:inherit; padding:0.4rem; border:1px solid var(--line); border-radius:4px;"></dd>
+      </div>
+      <div>
+        <dt>密码</dt>
+        <dd><input type="password" name="password" required style="width:100%; font:inherit; padding:0.4rem; border:1px solid var(--line); border-radius:4px;"></dd>
+      </div>
+    </div>
+    <div class="page-actions">
+      <button type="submit" class="btn btn-primary">登录</button>
+    </div>
+  </form>
+  <p class="muted" style="font-size: 0.8rem;">密码哈希通过 <code>lpw hash-password</code> 生成，配置在 <code>.env</code> 的 <code>LPW_ADMIN_PASSWORD_HASH</code>。</p>
+</div>
+{% endblock %}

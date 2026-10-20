@@ -1,0 +1,51 @@
+# lynx-patch-watch configuration example.
+# Copy to config/settings.yaml and adjust.
+
+data_dir: data
+db_path: data/db/lpw.sqlite
+
+advisory:
+  # Adobe chimera CaaS collection endpoint (security bulletins card collection).
+  # Query params mirror the page's own CaaS block config; the endpoint itself
+  # is what the bulletins listing page loads client-side.
+  chimera_url: "https://www.adobe.com/chimera-api/collection?originSelection=hawks&contentTypeTags=caas:content-type/documentation&collectionTags=caas:trust-center/security-bulletin&excludeContentWithTags=&language=en&country=US&complexQuery=&excludeIds=&currentEntityId=&featuredCards=&environment=&draft=false&size=250"
+  # Only keep cards whose contentArea.detailText equals this mnemonic.
+  commerce_mnemonic: "caas:mnemonics/adobe-commerce"
+  # Detail page template for bulletin URLs when the card omits one.
+  detail_url_template: "https://www.adobe.com/trust/security/products/commerce/{aid_lower}"
+  # Browser-saved HTML of a bulletin detail page (bypasses Akamai blocks).
+  local_index_html: null
+  # Local directory of *.json fixtures (offline ingest / tests).
+  fixture_dir: null
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+  detail_fetch_limit: 15
+  request_timeout_seconds: 45.0
+  # When a bulletin page cannot prove isolated patches, follow Release Notes.
+  follow_release_notes: true
+  kb_fetch_limit_per_bulletin: 2
+  # Disk cache for downloaded upstream .patch files (git_commit checker).
+  patch_cache_dir: data/cache/patches
+
+scan:
+  # Project scan modes: git | local | manual. Root for local_path workspaces.
+  local_root: null
+  fetch_timeout_seconds: 600
+  mirrors_dir: data/mirrors
+  # Re-fetch advisories older than this many hours on `lpw scan` (0 = always).
+  advisory_max_age_hours: 6
+
+web:
+  host: 127.0.0.1
+  port: 8080
+  # Empty → loopback only (see IP allowlist middleware).
+  allowed_cidrs: []
+  # Only behind exactly one reverse proxy: the right-most X-Forwarded-For hop is used.
+  trust_x_forwarded_for: false
+  # Signed-cookie session settings.
+  session_idle_timeout_minutes: 120
+  login_rate_limit_max_attempts: 5
+  login_rate_limit_window_seconds: 300
+
+rules:
+  # Directory holding YAML check rules (built-in examples + user custom).
+  dir: rules/magento

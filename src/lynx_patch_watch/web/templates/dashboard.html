@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}多项目看板 · lynx-patch-watch{% endblock %}
+{% block content %}
+<h1>多项目看板</h1>
+<p class="lede">按类型统计项目与未修问题；覆盖率按最近 3 条公告计算。</p>
+
+<div class="metrics">
+  <div class="metric"><span class="metric-label">项目总数</span><span class="metric-value">{{ projects|length }}</span></div>
+  <div class="metric"><span class="metric-label">有未修问题</span><span class="metric-value warn">{{ projects_with_open }}</span></div>
+  <div class="metric"><span class="metric-label">冲突待复核</span><span class="metric-value warn">{{ conflicts }}</span></div>
+  <div class="metric"><span class="metric-label">过期确认</span><span class="metric-value warn">{{ stale_reviews }}</span></div>
+  <div class="metric"><span class="metric-label">公告总数</span><span class="metric-value">{{ advisories|length }}</span></div>
+</div>
+
+<h2>按项目类型</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>类型</th><th>项目数</th></tr></thead>
+    <tbody>
+      {% for type, count in by_type.items() %}
+      <tr><td>{{ type }}</td><td>{{ count }}</td></tr>
+      {% else %}
+      <tr><td colspan="2" class="muted">暂无项目</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>未修问题严重级别分布</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>严重级别</th><th>未修项数</th></tr></thead>
+    <tbody>
+      {% for sev, count in severity_open.items() %}
+      <tr><td><span class="sev sev-{{ sev }}">{{ severity_zh(sev) }}</span></td><td>{{ count }}</td></tr>
+      {% else %}
+      <tr><td colspan="2" class="muted">没有未修项</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>最近公告修复覆盖率</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>公告</th><th>优先级</th><th>风险项数</th><th>覆盖率</th><th>详情状态</th></tr></thead>
+    <tbody>
+      {% for row in coverage %}
+      <tr>
+        <td><a href="/advisories/{{ row.advisory.id }}">{{ row.advisory.id }}</a></td>
+        <td>{{ row.advisory.priority or '—' }}</td>
+        <td>{{ row.items }}</td>
+        <td>{% if row.coverage is not none %}{{ '%.0f' % (row.coverage * 100) }}%{% else %}—{% endif %}</td>
+        <td>{{ row.advisory.detail_status }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="muted">暂无公告，先运行 lpw ingest</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>最近扫描失败</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>项目</th><th>时间</th><th>错误</th></tr></thead>
+    <tbody>
+      {% for run in failed_scans %}
+      <tr>
+        <td><a href="/projects/{{ run.project_id }}">{{ run.project_id }}</a></td>
+        <td>{{ format_date(run.finished_at or run.started_at) }}</td>
+        <td class="mono">{{ (run.error or '')[:160] }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="3" class="muted">没有失败记录</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

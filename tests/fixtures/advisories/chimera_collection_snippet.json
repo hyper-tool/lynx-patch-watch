@@ -1,0 +1,816 @@
+{
+ "cards": [
+  {
+   "id": "3bundvp",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-05",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-05",
+    "description": "Priority 2 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-05"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-21361 CVE-2026-21284 CVE-2026-21289 CVE-2026-21290 CVE-2026-21311 CVE-2026-21309 CVE-2026-21285 CVE-2026-21286 CVE-2026-21291 CVE-2026-21292 CVE-2026-21293 CVE-2026-21294 CVE-2026-21359 CVE-2026-21360 CVE-2026-21282 CVE-2026-21310 CVE-2026-21296 CVE-2026-21297 CVE-2026-21295"
+   },
+   "cardDate": "2026-03-10T00:00:00.000Z",
+   "createdDate": "2026-03-10T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:19.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-05",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-05",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "2njvzei",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-49",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-49",
+    "description": "Priority 2 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-49"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-34645 CVE-2026-34646 CVE-2026-34647 CVE-2026-34648 CVE-2026-34649 CVE-2026-34650 CVE-2026-34651 CVE-2026-34652 CVE-2026-34686 CVE-2026-34653 CVE-2026-34654 CVE-2026-34655 CVE-2026-34656 CVE-2026-34658 CVE-2026-34685"
+   },
+   "cardDate": "2026-05-12T00:00:00.000Z",
+   "createdDate": "2026-05-12T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:28.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-49",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-49",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "1tfd28q",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-73",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-73",
+    "description": "Priority 2 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-73"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-48356 CVE-2026-48358 CVE-2026-47994 CVE-2026-47988 CVE-2026-47984 CVE-2026-47995 CVE-2026-47996 CVE-2026-47992 CVE-2026-47997 CVE-2026-47998 CVE-2026-48371 CVE-2026-47999 CVE-2026-48000 CVE-2026-48001"
+   },
+   "cardDate": "2026-07-14T00:00:00.000Z",
+   "createdDate": "2026-07-14T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:39.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-73",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-73",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "3skuubw",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-92",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-92",
+    "description": "Priority 2 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-92"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-71362 CVE-2026-48414 CVE-2026-48413 CVE-2026-48415 CVE-2026-48416 CVE-2026-48411 CVE-2026-48412"
+   },
+   "cardDate": "2026-08-11T00:00:00.000Z",
+   "createdDate": "2026-08-11T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:45.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-92",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-92",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "k8b1n9",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-138",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-138",
+    "description": "Priority 2 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-138"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-76200 CVE-2026-76201 CVE-2026-77111 CVE-2026-77109 CVE-2026-77774 CVE-2026-76202 CVE-2026-77110 CVE-2026-77108"
+   },
+   "cardDate": "2026-09-08T00:00:00.000Z",
+   "createdDate": "2026-09-08T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:52.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-138",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-138",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "2l1lu8y",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-146",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-146",
+    "description": "Priority 1 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-146"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-75650"
+   },
+   "cardDate": "2026-09-07T00:00:00.000Z",
+   "createdDate": "2026-09-07T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:54.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-146",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-146",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "6hz4dj",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/commerce/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/5ru1"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/adobe-commerce",
+    "title": "APSB26-153",
+    "url": "https://www.adobe.com/trust/security/products/commerce/apsb26-153",
+    "description": "Priority 2 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/commerce/apsb26-153"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-103849 CVE-2026-92909 CVE-2026-91013 CVE-2026-100133 CVE-2026-92464 CVE-2026-92911 CVE-2026-95631 CVE-2026-92908 CVE-2026-92922 CVE-2026-92910 CVE-2026-95630"
+   },
+   "cardDate": "2026-10-13T00:00:00.000Z",
+   "createdDate": "2026-10-13T00:00:00.000Z",
+   "modifiedDate": "2026-10-13T15:39:30.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-153",
+   "overlayLink": "https://www.adobe.com/trust/security/products/commerce/apsb26-153",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "1sc6h0q",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/substance3d-modeler/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/df44"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/substance-3d-modeler",
+    "title": "APSB26-08",
+    "url": "https://www.adobe.com/trust/security/products/substance3d-modeler/apsb26-08",
+    "description": "Priority 3 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/substance3d-modeler/apsb26-08"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-21298 CVE-2026-21299 CVE-2026-21300 CVE-2026-21301 CVE-2026-21302 CVE-2026-21303"
+   },
+   "cardDate": "2026-01-13T00:00:00.000Z",
+   "createdDate": "2026-01-13T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:14.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/substance3d-modeler/apsb26-08",
+   "overlayLink": "https://www.adobe.com/trust/security/products/substance3d-modeler/apsb26-08",
+   "country": "xx",
+   "origin": ""
+  },
+  {
+   "id": "2a9smaj",
+   "showCard": {
+    "from": "",
+    "until": ""
+   },
+   "styles": {
+    "typeOverride": "default",
+    "backgroundImage": "https://www.adobe.com/trust/security/products/substance3d-stager/media_1e1d6ce6caa68dfd49689c46528c152d9fdeaad6f.jpg",
+    "backgroundAltText": "",
+    "mnemonic": "",
+    "icon": "https://www.adobe.com/content/dam/cc/images/shared/icons/9-nothing.svg",
+    "iconAlt": "Documentation"
+   },
+   "overlays": {
+    "banner": {
+     "backgroundColor": "#EAEAEA",
+     "fontColor": "#323232",
+     "description": "",
+     "icon": ""
+    },
+    "logo": {
+     "src": ""
+    },
+    "label": {
+     "description": "Article"
+    },
+    "videoButton": {
+     "url": ""
+    }
+   },
+   "tags": [
+    {
+     "id": "37mr/4l80"
+    },
+    {
+     "id": "2r64/i3rq"
+    },
+    {
+     "id": "4x24/53rj"
+    }
+   ],
+   "contentArea": {
+    "detailText": "caas:mnemonics/substance-3d-stager",
+    "title": "APSB26-09",
+    "url": "https://www.adobe.com/trust/security/products/substance3d-stager/apsb26-09",
+    "description": "Priority 3 Security update",
+    "dateDetailText": {
+     "type": "date-interval",
+     "startTime": "",
+     "endTime": ""
+    }
+   },
+   "footer": [
+    {
+     "divider": false,
+     "left": [
+      {
+       "type": "bookmark",
+       "saveCardIcon": "",
+       "unsaveCardIcon": "",
+       "cardSaveText": "",
+       "unsaveCardText": ""
+      }
+     ],
+     "center": [],
+     "right": [
+      {
+       "type": "button",
+       "style": "",
+       "text": "Read now",
+       "href": "https://www.adobe.com/trust/security/products/substance3d-stager/apsb26-09"
+      }
+     ],
+     "altCta": []
+    }
+   ],
+   "search": {
+    "search": "CVE-2026-21287"
+   },
+   "cardDate": "2026-01-13T00:00:00.000Z",
+   "createdDate": "2026-01-13T00:00:00.000Z",
+   "modifiedDate": "2026-09-30T15:15:13.000Z",
+   "startDate": "",
+   "endDate": "",
+   "ctaLink": "https://www.adobe.com/trust/security/products/substance3d-stager/apsb26-09",
+   "overlayLink": "https://www.adobe.com/trust/security/products/substance3d-stager/apsb26-09",
+   "country": "xx",
+   "origin": ""
+  }
+ ],
+ "filters": [],
+ "isHashed": true
+}

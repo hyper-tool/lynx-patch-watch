@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}{{ advisory.id }} · 公告详情{% endblock %}
+{% block content %}
+<h1>{{ advisory.id }}</h1>
+<p class="lede">{{ advisory.title }}</p>
+
+<div class="meta-grid">
+  <div><dt>优先级</dt><dd>{{ advisory.priority or '—' }}</dd></div>
+  <div><dt>发布日期</dt><dd>{{ format_date(advisory.published_at) }}</dd></div>
+  <div><dt>修订日期</dt><dd>{{ format_date(advisory.modified_at) }}</dd></div>
+  <div><dt>详情状态</dt><dd>{{ advisory.detail_status }}</dd></div>
+  <div><dt>公告链接</dt><dd>{% if advisory.url %}<a href="{{ advisory.url }}" target="_blank" rel="noopener noreferrer">{{ advisory.url }}</a>{% else %}—{% endif %}</dd></div>
+</div>
+
+<h2>风险项（{{ items|length }}）</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>CVE</th><th>严重级别</th><th>CVSS</th><th>修复方式</th><th>受影响包</th></tr></thead>
+    <tbody>
+      {% for item in items %}
+      <tr>
+        <td class="mono">{{ item.cve_id }}</td>
+        <td><span class="sev sev-{{ item.severity }}">{{ severity_zh(item.severity) }}</span></td>
+        <td>{{ item.cvss if item.cvss is not none else '—' }}</td>
+        <td>{{ fix_kind_zh(item.fix_kind) }}</td>
+        <td class="mono">{{ item.packages|map(attribute='name')|join(', ') or '—' }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="muted">暂无风险项</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>受影响项目</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>项目</th><th>各 item 结论</th></tr></thead>
+    <tbody>
+      {% for row in affected_projects %}
+      <tr>
+        <td><a href="/projects/{{ row.project.id }}">{{ row.project.name or row.project.id }}</a></td>
+        <td>{{ row.statuses|map('status_zh')|join('、') }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="2" class="muted">没有项目扫描过该公告</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

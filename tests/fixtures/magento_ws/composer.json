@@ -1,0 +1,7 @@
+{
+  "name": "acme/demo-shop",
+  "type": "project",
+  "require": {
+    "magento/product-community-edition": "2.4.7-p7"
+  }
+}

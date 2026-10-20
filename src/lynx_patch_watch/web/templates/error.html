@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}出错的 · lynx-patch-watch{% endblock %}
+{% block content %}
+<div class="section">
+  <h1 style="margin-top: 0;">出错了</h1>
+  <p class="warn-text">{{ message }}</p>
+  <div class="page-actions">
+    <a class="btn" href="javascript:history.back()">返回</a>
+    <a class="btn" href="/">看板</a>
+  </div>
+</div>
+{% endblock %}

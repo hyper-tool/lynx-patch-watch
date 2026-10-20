@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}历史 · lynx-patch-watch{% endblock %}
+{% block content %}
+<h1>历史时间线</h1>
+<p class="lede">每个 (project, item) 的首次发现、修复时间与 MTTR；未修数随时间变化（服务端生成 SVG）。</p>
+
+<h2>MTTR（首次发现 → 首次修复）</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>项目</th><th>风险项</th><th>首次发现</th><th>修复时间</th><th>历时（天）</th></tr></thead>
+    <tbody>
+      {% for row in mttr_rows %}
+      <tr>
+        <td class="mono">{{ row.project }}</td>
+        <td class="mono">{{ row.item_id }}</td>
+        <td>{{ format_date(row.first) }}</td>
+        <td>{{ format_date(row.fixed) }}</td>
+        <td>{{ days_since(row.first) - days_since(row.fixed) }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="5" class="muted">暂无已修复项</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<h2>各项目未修数随时间变化</h2>
+{% for s in series %}
+  {% if s.points|length > 1 %}
+  <div class="section">
+    <h3>{{ s.project }}</h3>
+    {{ sparkline(s.points) }}
+  </div>
+  {% endif %}
+{% endfor %}
+
+<h2>公告发布后的修复进度</h2>
+<div class="table-wrap">
+  <table class="data">
+    <thead><tr><th>公告</th><th>已修复项目数</th></tr></thead>
+    <tbody>
+      {% for row in advisory_progress %}
+      <tr>
+        <td><a href="/advisories/{{ row.advisory.id }}">{{ row.advisory.id }}</a></td>
+        <td>{{ row.points|length }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="2" class="muted">暂无数据</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

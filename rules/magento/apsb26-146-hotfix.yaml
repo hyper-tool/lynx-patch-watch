@@ -1,0 +1,23 @@
+# Built-in example rule for APSB26-146 (hotfix-only bulletin).
+#
+# APSB26-146's Solution column offers only "Hotfix for CVE-2026-75650" — there
+# is no fixed version number, so version-based checks cannot confirm the fix.
+# Verification therefore relies on patch artifacts:
+#
+#  1. a hotfix patch file whose name/content mentions CVE-2026-75650
+#     (m2-hotfixes/, patches/, .magento.env.yaml QUALITY_PATCHES), and
+#  2. the patch's "after" side matching the deployed vendor files.
+#
+# TODO(待补充真实补丁内容): replace the sample feature conditions below with
+# the real hotfix diff once Adobe publishes it (see the Release Notes link on
+# the bulletin page).
+id: apsb26-146-hotfix
+advisory: APSB26-146
+items: [CVE-2026-75650]
+applies_to: {type: magento, version: ">=2.4.4"}
+checks:
+  - hotfix_dir: {}
+  - feature_file:
+      path: m2-hotfixes/CVE-2026-75650.patch
+      contains: "CVE-2026-75650"
+verdict_on_match: fixed

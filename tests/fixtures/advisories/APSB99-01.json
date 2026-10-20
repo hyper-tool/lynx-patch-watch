@@ -1,0 +1,42 @@
+{
+  "external_id": "APSB99-01",
+  "title": "Fixture Adobe Security Bulletin APSB99-01",
+  "url": "https://example.com/apsb99-01",
+  "published_at": "2026-01-15T00:00:00+00:00",
+  "raw_text": "Adobe has released security updates for Magento. CVE-2026-10001 affects AccountManagement. CVE-2026-10002 affects Quote. Apply isolated patch or upgrade.",
+  "risk_items": [
+    {
+      "title": "Improper Authorization in AccountManagement",
+      "cve_ids": ["CVE-2026-10001"],
+      "severity": "high",
+      "score": 7.5,
+      "score_source": "fixture",
+      "remediation_offer": "upgrade_or_patch",
+      "business_impact": "Authenticated admin actions may be forged without CSRF token.",
+      "technical_summary": "Missing CSRF validation in AccountManagement::doSomething.",
+      "packages": [
+        {
+          "name": "magento/module-customer",
+          "affected_versions": ">=2.4.0,<2.4.6",
+          "fixed_version": "2.4.6"
+        }
+      ],
+      "patch_text": "diff --git a/vendor/magento/module-customer/Model/AccountManagement.php b/vendor/magento/module-customer/Model/AccountManagement.php\nindex 111..222 100644\n--- a/vendor/magento/module-customer/Model/AccountManagement.php\n+++ b/vendor/magento/module-customer/Model/AccountManagement.php\n@@ -10,7 +10,7 @@ class AccountManagement\n      public function doSomething($user, $request)\n      {\n-    if ($user->isAllowed()) {\n+    if ($user->isAllowed() && $this->csrfValidator->validate($request)) {\n          return true;\n      }\n"
+    },
+    {
+      "title": "Info disclosure in Quote",
+      "cve_ids": ["CVE-2026-10002"],
+      "severity": "medium",
+      "score": 5.3,
+      "score_source": "fixture",
+      "remediation_offer": "upgrade_only",
+      "packages": [
+        {
+          "name": "magento/module-quote",
+          "affected_versions": ">=2.4.0,<2.4.7",
+          "fixed_version": "2.4.7"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html><head><title>APSB26-73</title></head><body>
+<h1>Security update available for Adobe Commerce | APSB26-73</h1>
+<h2>Affected Versions</h2>
+<table>
+  <tr><th>Product</th><th>Version</th><th>Priority Rating</th><th>Platform</th></tr>
+  <tr>
+    <td>Adobe Commerce</td>
+    <td>2.4.9 2.4.8-p5 and earlier 2.4.7-p10 and earlier 2.4.6-p15 and earlier 2.4.5-p17 and earlier 2.4.4-p18 and earlier</td>
+    <td>2</td><td>All</td>
+  </tr>
+  <tr>
+    <td>Magento Open Source</td>
+    <td>2.4.9 2.4.8-p5 and earlier 2.4.7-p10 and earlier 2.4.6-p15 and earlier</td>
+    <td>2</td><td>All</td>
+  </tr>
+  <tr>
+    <td>Adobe Commerce B2B</td>
+    <td>1.5.3 1.5.2-p5 and earlier</td>
+    <td>2</td><td>All</td>
+  </tr>
+</table>
+<h2>Solution</h2>
+<table>
+  <tr><th>Product</th><th>Updated Version</th><th>Platform</th><th>Installation Instructions</th></tr>
+  <tr>
+    <td>Adobe Commerce</td>
+    <td>2.4.9-2026-jul 2.4.8-2026-jul 2.4.7-2026-jul 2.4.6-2026-jul 2.4.5-2026-jul 2.4.4-2026-jul</td>
+    <td>All</td>
+    <td><a href="https://experienceleague.adobe.com/en/docs/experience-cloud-kcs/kbarticles/ka-37421">Release Notes</a></td>
+  </tr>
+  <tr>
+    <td>Magento Open Source</td>
+    <td>2.4.9-2026-jul 2.4.8-2026-jul 2.4.7-2026-jul 2.4.6-2026-jul</td>
+    <td>All</td>
+    <td><a href="https://experienceleague.adobe.com/en/docs/experience-cloud-kcs/kbarticles/ka-37421">Release Notes</a></td>
+  </tr>
+</table>
+<h2>Vulnerability Details</h2>
+<table>
+  <tr>
+    <th>Vulnerability Category</th><th>Vulnerability Impact</th><th>Severity</th><th>Auth</th><th>Admin</th>
+    <th>CVSS base score</th><th>Vector</th><th>CVE number(s)</th><th>Notes</th>
+  </tr>
+  <tr>
+    <td>Unrestricted Upload of File with Dangerous Type (CWE-434)</td>
+    <td>Privilege escalation</td><td>Critical</td><td>No</td><td>No</td>
+    <td>9.6</td><td>CVSS:3.1</td><td>CVE-2026-48356</td><td></td>
+  </tr>
+  <tr>
+    <td>Cross-site Scripting (Stored XSS) (CWE-79)</td>
+    <td>Privilege escalation</td><td>Critical</td><td>Yes</td><td>Yes</td>
+    <td>8.1</td><td>CVSS:3.1</td><td>CVE-2026-47995</td><td>B2B</td>
+  </tr>
+</table>
+</body></html>

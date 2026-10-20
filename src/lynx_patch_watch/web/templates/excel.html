@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}Excel 导入导出 · lynx-patch-watch{% endblock %}
+{% block content %}
+<h1>Excel 导入导出</h1>
+<p class="lede">模板含说明、数据验证下拉框与必填标注；导入走“预览 → 确认 → 事务写入”；导出含 4 张表。</p>
+
+{% if message %}<p class="{{ 'ok-text' if message in ('导入完成',) else 'warn-text' }}">{{ message }}</p>{% endif %}
+
+<div class="page-actions">
+  <a class="btn" href="/excel/template">下载模板</a>
+  <a class="btn" href="/excel/export">导出当前数据</a>
+</div>
+
+<h2>导入</h2>
+<div class="section">
+  <form method="post" action="/excel/import" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+    <div class="filters">
+      <label>选择 .xlsx 文件<input type="file" name="file" accept=".xlsx" required></label>
+      <button type="submit" class="btn">预览导入</button>
+      <button type="submit" name="apply" value="1" class="btn btn-primary">确认写入</button>
+    </div>
+  </form>
+
+  {% if preview %}
+  <h3>导入预览</h3>
+  <div class="meta-grid">
+    <div><dt>新增</dt><dd>{{ preview.to_create|length }}</dd></div>
+    <div><dt>更新</dt><dd>{{ preview.to_update|length }}</dd></div>
+    <div><dt>无变化</dt><dd>{{ preview.unchanged|length }}</dd></div>
+    <div><dt>错误行</dt><dd>{{ preview.errors|length }}</dd></div>
+  </div>
+  {% if preview.errors %}
+  <div class="table-wrap">
+    <table class="data">
+      <thead><tr><th>行</th><th>工作表</th><th>错误</th></tr></thead>
+      <tbody>
+        {% for err in preview.errors %}
+        <tr><td>{{ err.row }}</td><td>{{ err.sheet }}</td><td class="warn-text">{{ err.message }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+  {% if result %}
+  <p class="ok-text">已写入：新增 {{ result.created }}，更新 {{ result.updated }}，确认 {{ result.reviews }}。</p>
+  {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
